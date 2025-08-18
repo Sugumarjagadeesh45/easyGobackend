@@ -1,8 +1,7 @@
-
 const User = require('../models/User');
 const Registration = require('../models/Registration');
 const Location = require('../models/location');
-
+const jwt = require('jsonwebtoken');
 
 exports.saveUserLocation = async (req, res) => {
   try {
@@ -53,21 +52,6 @@ exports.getAllUserLocations = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Middleware for token authentication
 exports.authMiddleware = (req, res, next) => {
@@ -134,7 +118,8 @@ exports.registerUser = async (req, res) => {
 
     const registration = new Registration({
       name,
-      phoneNumber
+      phoneNumber,
+      address
     });
 
     await registration.save();
@@ -143,5 +128,3 @@ exports.registerUser = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
-
-
